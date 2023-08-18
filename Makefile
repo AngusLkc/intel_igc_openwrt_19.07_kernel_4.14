@@ -12,7 +12,7 @@ define KernelPackage/i225
   SECTION:=kernel
   SUBMENU:=Network Devices
   FILES:=$(PKG_BUILD_DIR)/igc.ko
-  AUTOLOAD:=$(call AutoLoad,35,i225)
+  AUTOLOAD:=$(call AutoLoad,35,igc)
 endef
 
 define KernelPackage/i225/description
