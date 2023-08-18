@@ -1,22 +1,22 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
-PKG_NAME:=i225
+PKG_NAME:=igc
 PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
 
-define KernelPackage/i225
-  DEPENDS:=@LINUX_4_14
-  TITLE:=Intel i225 2.5G Ethernet Support
+define KernelPackage/$(PKG_NAME)
+  DEPENDS:=@LINUX_4_14 @TARGET_x86
+  TITLE:=Intel® i225/i226 2.5G Ethernet Adapter support
   SECTION:=kernel
   SUBMENU:=Network Devices
-  FILES:=$(PKG_BUILD_DIR)/igc.ko
-  AUTOLOAD:=$(call AutoLoad,35,igc)
+  FILES:=$(PKG_BUILD_DIR)/$(PKG_NAME).ko
+  AUTOLOAD:=$(call AutoLoad,35,$(PKG_NAME))
 endef
 
-define KernelPackage/i225/description
- Kernel module to support intel i225 2.5G Ethernet
+define KernelPackage/$(PKG_NAME)/description
+  Kernel module to support Intel® i225/i226 2.5G Ethernet Adapter
 endef
 
 define Build/Prepare
@@ -31,4 +31,4 @@ define Build/Compile
 		modules
 endef
 
-$(eval $(call KernelPackage,i225))
+$(eval $(call KernelPackage,$(PKG_NAME)))
