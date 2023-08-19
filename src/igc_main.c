@@ -5,6 +5,7 @@
 #include <linux/types.h>
 #include <linux/if_vlan.h>
 #include <linux/aer.h>
+#include <linux/version.h>
 
 #include "igc.h"
 #include "igc_hw.h"
@@ -1760,7 +1761,11 @@ static void igc_down(struct igc_adapter *adapter)
 	igc_nfc_filter_exit(adapter);
 
 	/* set trans_start so we don't get spurious watchdogs during reset */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,7,0)
 	netif_trans_update(netdev);
+#else
+	netdev->trans_start = jiffies;
+#endif
 
 	netif_carrier_off(netdev);
 	netif_tx_stop_all_queues(netdev);
